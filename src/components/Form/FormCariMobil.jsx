@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom'
-//import {useCars} from '../Layout/Layout'
-import { useCars } from '../../App';
-import axios from 'axios'
+import { useDispatch } from 'react-redux';
+import { setCars } from '../../redux/actions/carsAction';
 
 import InputTipeDriver from "./InputTipeDriver"
 import PilihTanggal from "./PilihTanggal"
@@ -11,8 +10,8 @@ import InputPenumpang from "./InputPenumpang"
 
 export default function FormCariMobil({ zIndex, onClick, position, disabled, role }) {
     const push = useNavigate();
-    const { setCars } = useCars();
-
+    const dispatch = useDispatch();
+    
     const [formInputData, setFormInputData] = React.useState({
         tipeDriver: '',
         tanggal: null,
@@ -27,7 +26,6 @@ export default function FormCariMobil({ zIndex, onClick, position, disabled, rol
             ...formInputData,
             [inputFieldName]: inputFieldValue
         }
-        //console.log(newInputValue);
         setFormInputData(newInputValue);
     }
     const handleInputDateChange = (e) => {
@@ -35,18 +33,12 @@ export default function FormCariMobil({ zIndex, onClick, position, disabled, rol
             ...formInputData,
             tanggal: e?.toISOString()
         }
-        //console.log(newInputValue);
         setFormInputData(newInputValue);
     }
 
-    const handleFormSubmit = async (e) => {
-        try {
-            const { data } = await axios.get("https://rent-cars-api.herokuapp.com/customer/car");
-            setCars(data)
-            push('/cars')
-        } catch (error) {
-            console.log(error)
-        }
+    const handleFormSubmit = (e) => {
+        dispatch(setCars());
+        push('/cars');
         e.preventDefault();
     }
 

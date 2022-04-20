@@ -6,7 +6,7 @@ import NavToggle from '../../assets/js/nav'
 
 export default function Header({head}) {
     return (
-        <header>
+        <>
             <div className="header-navbar sticky-top">
                 <div id="logo">
                     <img src={logo} alt="logo" />
@@ -44,6 +44,7 @@ export default function Header({head}) {
                 : <div style={{marginBottom:'100px'}}></div>
                 }
             </section>
-        </header>
+            <div id='minus55'></div>
+        </>
     )
 }

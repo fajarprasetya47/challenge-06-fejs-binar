@@ -11,6 +11,7 @@ export default function Router(){
                     <Route path='/' element={<Home/>} />
                     <Route path='/cars' element={<Cars/>} />
                     <Route path='/cars/:id' element={<CarDetail/>}/>
+                    <Route path='*' element={<h1>404 Page Not Found</h1>}/>
                 </Routes>
             </BrowserRouter>
         </>

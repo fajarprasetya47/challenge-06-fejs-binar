@@ -1,16 +1,25 @@
 import userIcon from '../assets/img/fi_users.svg'
 import settingIcon from '../assets/img/fi_settings.svg'
 import calendarIcon from '../assets/img/fi_calendar.svg'
-import { useEffect } from "react";
-import { useState } from "react";
+import Button from './Button/Button';
+import { useEffect, useState } from "react";
 import { Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setBtnLanjut } from '../redux/actions/buttonAction';
 
 export default function DetailMobil({ car, id }) {
+    const dispatch = useDispatch();
     const [carId, setCarId] = useState([]);
+    
+    const detail = useSelector((state) => state.detailReducer);
+    const btn = useSelector((state)=>state.buttonReducer)
+
     useEffect(() => {
         const dataCar = car?.find(item => item.id === Number(id));
         setCarId(dataCar);
-    }, [id, car])
+        dispatch(setBtnLanjut());
+    }, [id, car, dispatch])
+
     return (
         <>
             {car !== undefined ? (
@@ -64,19 +73,19 @@ export default function DetailMobil({ car, id }) {
                                             <div className="me-2">
                                                 <p id="capacity">
                                                     <img src={userIcon} alt="user" className='me-2 w-25' />
-                                                    4 Orang
+                                                    {detail.capacity}
                                                 </p>
                                             </div>
                                             <div className="me-2">
-                                                <p id="tipe">
+                                                <p id="tipeMobil">
                                                     <img src={settingIcon} alt="setting" className='me-2 w-25' />
-                                                    Manual
+                                                    {detail.tipeMobil}
                                                 </p>
                                             </div>
                                             <div className="me-2">
                                                 <p id="tahun">
                                                     <img src={calendarIcon} alt="calendar" className='me-2' />
-                                                    Tahun 2020
+                                                    {detail.tahun}
                                                 </p>
                                             </div>
                                         </div>
@@ -86,18 +95,18 @@ export default function DetailMobil({ car, id }) {
                                         <p className="fw-bold">Rp.{carId.price?.toLocaleString("id-ID")}</p>
                                     </div>
                                     <div className="d-flex">
-                                        <button className="btn btn-success w-100">Lanjutkan Pembayaran</button>
+                                        <Button className="btn btn-success w-100" placeholder={btn.placeholder} />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='text-center'>
-                        <button className='btn btn-success'>Lanjutkan Pembayaran</button>
+                        <Button className="btn btn-success" placeholder={btn.placeholder} />
                     </div>
                 </div>
 
-            ) : <Navigate to='/'/>}
+            ) : <Navigate to='/cars' />}
         </>
     )
 }

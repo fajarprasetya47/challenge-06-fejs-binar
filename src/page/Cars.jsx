@@ -1,10 +1,11 @@
 import CariMobil from '../components/CariMobil';
 import Layout from '../components/Layout/Layout';
 import ListMobil from '../components/ListMobil';
-import { useCars } from '../App';
+import {useSelector} from 'react-redux'
 
 export default function Cars() {
-    const { cars } = useCars()
+    const {cars} = useSelector((state)=>state.carsReducer);
+    
     return (
         <>
             <Layout>
