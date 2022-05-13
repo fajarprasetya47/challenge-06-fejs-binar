@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { Provider } from 'react-redux'
-import { globalStore, persistor } from './redux/store';
+import { globalStore, persistor } from './config/redux/store';
 import { PersistGate } from 'redux-persist/integration/react'
 
-import './assets/styles/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle';
+import './assets/styles/style.css';
+import './assets/styles/style2.css';
+import './assets/styles/styles.css';
+import './assets/js/scripts'
 
 const root = document.getElementById('root');
 
@@ -14,11 +18,13 @@ const root = document.getElementById('root');
 
 //latest version of react
 ReactDOM.createRoot(root).render(
-    <Provider store={globalStore}>
-        <PersistGate persistor={persistor}>
-            <App />
-        </PersistGate>
-    </Provider>
+    <React.StrictMode>
+        <Provider store={globalStore}>
+            <PersistGate persistor={persistor}>
+                <App />
+            </PersistGate>
+        </Provider>
+    </React.StrictMode>
 );
 
 
